@@ -1,0 +1,7 @@
+import io
+import system
+
+main(args: [String]) => ExitCode:
+    print "Hello World"
+    
+    return .normal

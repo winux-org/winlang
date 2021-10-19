@@ -1,0 +1,105 @@
+import io
+import gtk
+
+# this function will be linked from static library
+extern proc printf(format: String, _ rest Any...):
+    int printf(const char * format, ...)
+    
+
+func add(a: Int64, b Int64) => Int64:
+    return a + b
+
+func show(number: Int64):
+    print "Number: ${number}"
+
+extend String:
+    func isEmailCorrect() => Bool:
+        self.count()
+        self.count # brackets are optional 
+        return True
+
+extend String with func isEmailCorrect() => Bool:
+    self.count()
+    self.count # brackets are optional 
+    return True
+
+system func asmFunc():
+    .globl frame_return
+    frame_return:
+        str     x0, [x18]
+        mov     x1, #0x0
+
+func returnMany(arg: Int64) => (Int64, String) {
+    return (arg, "example string")
+}
+
+interface User:
+    func getName()
+
+struct S:
+    pass
+
+
+
+struct String:
+    var
+        length: Int64
+    
+
+# Empty brackets can be omited
+func printHello:
+    print "hello"
+
+func callWithTuple(var1: Int64, var2: String)
+    for 0..var:
+        print "hello ${var2}"
+
+
+func main:
+    var
+        number = 16
+        floatNumber: Float64 = 88
+        `Int64`: Int64 = 0x124AB
+        another = 1_000_000
+    let
+        tab: [Int64] = [1, 3, 56]
+        # var without initial value can be assigned only once and used after assignemnt
+        tup: (var1: Int64, var2: String)
+
+        n1, st = returnMany 17
+        st2: String
+    
+        longString = String:
+            bardzo długi string
+            łamany wieloma linijkami
+
+        callback: func (n: Int64)
+        callback2: func (n: Int64) => String:
+            return "String: ${n}"
+
+        callback3: func (n: Int64) => String
+
+    number, st2 = returnMany(17)
+
+    # names of labels do not matter, but in this context callback uses n as label
+    callback = show 
+
+    callback3 = func (n: Int64) => String:
+        return "Another: ${n}"
+
+    print add(a: 4, b: 5)
+    print "Program will fininsh soon ${number}"
+
+    if "artur@localhost".isEmailCorrect():
+        print "this email is correct"
+
+    print 17
+    # Call function with arguments oprder
+    print(12)
+    # freedom in argument calls
+    print(number: 10)
+
+    printHello
+
+    for element in tab:
+        print element

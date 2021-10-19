@@ -1,0 +1,4 @@
+import io
+
+main(args: [String]):
+    print "Hello World"

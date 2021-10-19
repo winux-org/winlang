@@ -1,0 +1,12 @@
+
+
+enum SystemExitCode:
+    case succsess
+    case failure
+
+    def exitCode():
+        switch self:
+            
+
+interface ExitCode:
+    func exitCode()
